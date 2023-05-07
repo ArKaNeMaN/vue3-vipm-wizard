@@ -2,21 +2,30 @@
     {
         "classType": "item",
         "classData": {
+            "title": "Оружие",
+            "desc": "Выдаёт игроку указанное стандартное оружие и патроны к нему",
+
             "name": "Weapon",
             "params": [
                 {
                     "name": "Name",
+                    "desc": "Название оружия в формате weapon_*",
+
                     "type": "String",
                     "required": true
                 },
                 {
                     "name": "GiveType",
+                    "desc": "Тип выдачи оружия: Append, Replace или DropAndReplace",
+
                     "type": "String",
                     "required": false,
                     "default": "DropAndReplace"
                 },
                 {
                     "name": "BpAmmo",
+                    "desc": "Сколько выдавать патронов в запас",
+
                     "type": "Integer",
                     "required": false,
                     "default": -1
@@ -27,16 +36,23 @@
     {
         "classType": "module",
         "classData": {
+            "title": "VIP в таблице счёта",
+            "desc": "Отображает для игрока статус VIP в таблице счёта",
+
             "name": "VipInTab",
             "params": [
                 {
                     "name": "Enabled",
+                    "desc": "Отображать ли VIP-статус в таблице счёта?",
+
                     "type": "Boolean",
                     "required": false,
                     "default": true
                 },
                 {
                     "name": "Override",
+                    "desc": "Перекрывать ли другие статусы?",
+
                     "type": "Boolean",
                     "required": false,
                     "default": false
@@ -47,6 +63,9 @@
     {
         "classType": "limit",
         "classData": {
+            "title": "Стим-клиент",
+            "desc": "Условие верно для игроков, играющих с лицензионной версии игры",
+
             "name": "Steam",
             "static": true,
             "forPlayer": true
@@ -55,18 +74,25 @@
     {
         "classType": "limit",
         "classData": {
+            "title": "Раунды",
+            "desc": "Условие верно в указанном интервале раундов",
+
             "name": "Round",
             "static": false,
             "forPlayer": false,
             "params": [
                 {
                     "name": "Min",
+                    "desc": "С какого раунда должно срабатывать условие",
+
                     "type": "Integer",
                     "required": false,
                     "default": 0
                 },
                 {
                     "name": "Max",
+                    "desc": "До какого раунда должно срабатывать условие",
+
                     "type": "Integer",
                     "required": false,
                     "default": 10000000

@@ -19,7 +19,11 @@ const emit = defineEmits<{
         :type.camel="type"
         :value="modelValue"
         @input="emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
-        class="px-3 py-2 rounded-lg border"
+        class="
+            text-base leading-4 py-2.5 px-4 rounded-lg border h-4 box-content
+            focus:border focus:border-blue-400
+            focus-visible:outline-0
+        "
         :placeholder="placeholder"
     />
 </template>

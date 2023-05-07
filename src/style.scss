@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,200;0,300;0,600;0,700;1,300&display=swap');
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
     font-family: 'Fira Sans', sans-serif;
     font-weight: 300;
@@ -19,7 +23,7 @@ html {
 }
 
 .form-label {
-    @apply text-gray-700 block mt-2 mb-1 text-sm font-semibold;
+    @apply text-gray-700 block first:mt-0 mt-3 mb-1 text-sm font-semibold;
 }
 
 .table {
@@ -43,5 +47,25 @@ html {
 
     td, th {
         @apply py-2 px-3;
+    }
+}
+
+.controls-row {
+    @apply flex flex-row flex-nowrap items-center;
+
+    :first-child {
+        border-bottom-right-radius: 0!important;
+        border-top-right-radius: 0!important;
+    }
+
+    :last-child {
+        border-bottom-left-radius: 0!important;
+        border-top-left-radius: 0!important;
+    }
+
+    &.collapse-borders {
+        :not(:last-child) {
+            border-right: none!important;
+        }
     }
 }

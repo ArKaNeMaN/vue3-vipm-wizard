@@ -13,6 +13,9 @@ import {createPinia} from "pinia";
 import Extensions from "./pages/Extensions.vue";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+// @ts-ignore
+import VueTippy from 'vue-tippy';
+import 'tippy.js/dist/tippy.css'
 
 library.add(fas, fab);
 
@@ -29,6 +32,7 @@ const router = createRouter({
 const pinia = createPinia();
 
 createApp(App)
+    .use(VueTippy)
     .use(Toast)
     .use(pinia)
     .use(router)

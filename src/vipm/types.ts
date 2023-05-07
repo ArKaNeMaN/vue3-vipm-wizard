@@ -6,12 +6,16 @@ export enum ClassType {
 
 export interface ClassDeclaration {
     classType: ClassType;
-    classData: BaseClass & (LimitClass | ItemClass | ModuleClass);
+    classData: BaseClass & (LimitClass | ItemClass | ModuleClass) | any;
 }
 
 export interface BaseClass {
     name: string;
     params: ParamsList;
+
+    title?: string;
+    desc?: string;
+    url?: string;
 }
 
 export interface BaseClassUnit {
@@ -59,12 +63,14 @@ export enum ParamType {
     Items = 'Items',
 }
 
-export type Param = {
+export interface Param {
     name: string,
     type: ParamType,
     required: boolean,
     default?: ParamValue,
-};
+    desc?: string;
+}
+
 export type ParamsList = Param[];
 
 export type ParamValue =

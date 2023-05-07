@@ -1,6 +1,15 @@
 import {defineStore} from "pinia";
 import {useStorage} from "@vueuse/core";
-import {ClassDeclaration, ClassType, ItemClass, LimitClass, ModuleClass, ParamsList, ParamType} from "../vipm/types.ts";
+import {
+    BaseClass,
+    ClassDeclaration,
+    ClassType,
+    ItemClass,
+    LimitClass,
+    ModuleClass,
+    ParamsList,
+    ParamType
+} from "../vipm/types.ts";
 import {checkParamType} from "../vipm/params.ts";
 
 export const useExtensionsStore = defineStore('extensions', {
@@ -56,6 +65,7 @@ export const useExtensionsStore = defineStore('extensions', {
                         type: param.type,
                         required: param.required,
                         default: param.default ?? undefined,
+                        desc: param.desc ?? undefined,
                     });
                 }
 
@@ -63,29 +73,27 @@ export const useExtensionsStore = defineStore('extensions', {
             }
 
             for (const decl of decls) {
+                const baseData: BaseClass = {
+                    name: decl.classData.name,
+                    params: makeParamsList(decl.classData.params),
+                    title: decl.classData.title ?? undefined,
+                    desc: decl.classData.desc ?? undefined,
+                };
+                
                 switch (decl.classType) {
                     case ClassType.Module:
-                        const moduleData = decl.classData as ModuleClass;
-                        this.modules.set(moduleData.name, {
-                            name: moduleData.name,
-                            params: makeParamsList(moduleData.params),
-                        });
+                        this.modules.set(baseData.name, baseData);
                         break;
                     case ClassType.Limit:
-                        const limitData = decl.classData as LimitClass;
-                        this.limits.set(limitData.name, {
-                            name: limitData.name,
-                            params: makeParamsList(limitData.params),
-                            forPlayer: limitData.forPlayer,
-                            static: limitData.static,
+                        this.limits.set(baseData.name, {
+                            ...baseData,
+                            // https://github.com/ArKaNeMaN/amxx-VipModular-pub/blob/master/amxmodx/scripting/include/VipM/Limits.inc#L74
+                            forPlayer: decl.classData.forPlayer ?? true,
+                            static: decl.classData.static ?? false,
                         });
                         break;
                     case ClassType.Item:
-                        const itemData = decl.classData as ItemClass;
-                        this.items.set(itemData.name, {
-                            name: itemData.name,
-                            params: makeParamsList(itemData.params),
-                        });
+                        this.items.set(baseData.name, baseData);
                         break;
                 }
             }
