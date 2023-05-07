@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,200;0,300;0,600;0,700;1,300&display=swap');
+
+html {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1rem;
+}
+
+.header-2 {
+    @apply text-xl font-bold mb-2;
+}
+
+.header-3 {
+    @apply text-lg font-semibold mb-2;
+}
+
+.form-label {
+    @apply text-gray-700 block mt-2 mb-1 text-sm font-semibold;
+}
+
+.table {
+    @apply border-collapse;
+
+    thead tr {
+        @apply border-b border-gray-200;
+    }
+
+    tbody tr:not(:last-child) {
+        @apply border-b border-gray-200;
+    }
+
+    thead {
+        @apply font-semibold;
+    }
+
+    th {
+        @apply text-left;
+    }
+
+    td, th {
+        @apply py-2 px-3;
+    }
+}

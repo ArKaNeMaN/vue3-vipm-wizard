@@ -1,0 +1,77 @@
+[
+    {
+        "classType": "item",
+        "classData": {
+            "name": "Weapon",
+            "params": [
+                {
+                    "name": "Name",
+                    "type": "String",
+                    "required": true
+                },
+                {
+                    "name": "GiveType",
+                    "type": "String",
+                    "required": false,
+                    "default": "DropAndReplace"
+                },
+                {
+                    "name": "BpAmmo",
+                    "type": "Integer",
+                    "required": false,
+                    "default": -1
+                }
+            ]
+        }
+    },
+    {
+        "classType": "module",
+        "classData": {
+            "name": "VipInTab",
+            "params": [
+                {
+                    "name": "Enabled",
+                    "type": "Boolean",
+                    "required": false,
+                    "default": true
+                },
+                {
+                    "name": "Override",
+                    "type": "Boolean",
+                    "required": false,
+                    "default": false
+                }
+            ]
+        }
+    },
+    {
+        "classType": "limit",
+        "classData": {
+            "name": "Steam",
+            "static": true,
+            "forPlayer": true
+        }
+    },
+    {
+        "classType": "limit",
+        "classData": {
+            "name": "Round",
+            "static": false,
+            "forPlayer": false,
+            "params": [
+                {
+                    "name": "Min",
+                    "type": "Integer",
+                    "required": false,
+                    "default": 0
+                },
+                {
+                    "name": "Max",
+                    "type": "Integer",
+                    "required": false,
+                    "default": 10000000
+                }
+            ]
+        }
+    }
+]
