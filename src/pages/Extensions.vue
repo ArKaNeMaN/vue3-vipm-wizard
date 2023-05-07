@@ -176,6 +176,10 @@ function toggleSpoiler(key: string) {
             @apply rounded-t-lg border-t;
         }
 
+        &:last-child {
+            @apply rounded-b-lg;
+        }
+
         .exts-list__item__header {
             @apply flex items-center cursor-pointer py-2;
         }
