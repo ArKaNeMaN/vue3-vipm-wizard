@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import NavRow from "./components/Navigation/NavRow.vue";
 import NavRowItem from "./components/Navigation/NavRowItem.vue";
-import {ref} from "vue";
-
-const text = ref<string>('');
 </script>
 
 <template>

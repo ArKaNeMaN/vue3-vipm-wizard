@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextInput from "../TextInput.vue";
 
-const props = defineProps<{
+defineProps<{
     modelValue: string,
 }>();
 
@@ -13,6 +13,6 @@ const emit = defineEmits<{
 <template>
     <text-input
         :model-value="modelValue"
-        @update:model-value="emit('update:modelValue', $event)"
+        @update:model-value="emit('update:modelValue', String($event))"
     />
 </template>

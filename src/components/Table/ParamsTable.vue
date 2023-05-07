@@ -4,7 +4,7 @@ import TableLayout from "./TableLayout.vue";
 import TableTextRow from "./TableTextRow.vue";
 import {ParamsList} from "../../vipm/types.ts";
 
-const props = defineProps<{
+defineProps<{
     params: ParamsList,
 }>();
 </script>

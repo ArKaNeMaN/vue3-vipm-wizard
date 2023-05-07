@@ -1,15 +1,15 @@
 <script setup lang="ts">
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
     placeholder?: string,
     type?: string,
-    modelValue: string,
+    modelValue: string | number,
 }>(), {
     type: 'text',
 });
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void,
+    (e: 'update:modelValue', value: string | number): void,
 }>();
 
 </script>
@@ -18,7 +18,7 @@ const emit = defineEmits<{
     <input
         :type.camel="type"
         :value="modelValue"
-        @input="emit('update:modelValue', $event.target.value)"
+        @input="emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
         class="px-3 py-2 rounded-lg border"
         :placeholder="placeholder"
     />

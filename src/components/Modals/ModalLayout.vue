@@ -25,7 +25,7 @@ watch(() => props.show, () => {
     (props.show ? open : close)();
 });
 
-function onKeyPressed(e) {
+function onKeyPressed(e: KeyboardEvent) {
     if (showState.value && e.key === 'Escape') {
         close();
     }

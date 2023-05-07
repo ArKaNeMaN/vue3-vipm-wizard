@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextInput from "../TextInput.vue";
 
-const props = defineProps<{
+defineProps<{
     modelValue: number,
 }>();
 

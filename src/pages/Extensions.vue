@@ -61,7 +61,7 @@ function toggleSpoiler(key: string) {
                 <input
                     type="file"
                     accept="application/json"
-                    @change="selectedFile = ($event.target.files || $event.dataTransfer.files)[0] ?? null"
+                    @change="selectedFile = (($event.target as HTMLInputElement)?.files ?? [])[0] ?? null"
                 />
                 <primary-button
                     type="button"
