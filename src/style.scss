@@ -69,3 +69,34 @@ html {
         }
     }
 }
+
+.accordion {
+    & > * {
+        @apply border border-t-0;
+        @apply px-2;
+
+        &:first-child {
+            @apply rounded-t-lg border-t;
+        }
+
+        &:last-child {
+            @apply rounded-b-lg;
+        }
+
+        .accordion__item__header {
+            @apply flex items-center cursor-pointer py-2;
+        }
+
+        .accordion__item__spoiler {
+            @apply overflow-y-hidden py-2;
+
+            &[data-show=true] {
+                @apply block;
+            }
+
+            &[data-show=false] {
+                @apply hidden;
+            }
+        }
+    }
+}

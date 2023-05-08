@@ -16,6 +16,7 @@ import NavRowItem from "./components/Navigation/NavRowItem.vue";
                     </a>
                     <nav-row-item href="/">Home</nav-row-item>
                     <nav-row-item href="/exts">Extensions</nav-row-item>
+                    <nav-row-item href="/vips">Vips</nav-row-item>
                     <nav-row-item a
                         target="_blank"
                         href="https://github.com/ArKaNeMaN/amxx-VipModular-pub"

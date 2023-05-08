@@ -104,3 +104,7 @@ export interface VipItem {
     access: LimitUnit[],
     modules: ModuleUnit[],
 }
+
+export interface CommentedVipItem extends VipItem {
+    comment: string,
+}

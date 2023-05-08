@@ -16,12 +16,15 @@ import "vue-toastification/dist/index.css";
 // @ts-ignore
 import VueTippy from 'vue-tippy';
 import 'tippy.js/dist/tippy.css'
+// @ts-ignore
+import Vips from "./pages/Vips.vue";
 
 library.add(fas, fab);
 
 const routes = [
     {path: '/', component: Home},
     {path: '/exts', component: Extensions},
+    {path: '/vips', component: Vips},
 ];
 
 const router = createRouter({

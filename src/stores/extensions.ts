@@ -26,6 +26,16 @@ export const useExtensionsStore = defineStore('extensions', {
     },
 
     actions: {
+        getModule(name: string): ModuleClass | undefined {
+            return this.modules.get(name);
+        },
+        getLimit(name: string): LimitClass | undefined {
+            return this.limits.get(name);
+        },
+        getItem(name: string): ItemClass | undefined {
+            return this.items.get(name);
+        },
+
         addFromGithubByString(repo: string) {
             let r = repo.split('/');
             r = [r[0], ...r[1].split('@')];
@@ -79,7 +89,7 @@ export const useExtensionsStore = defineStore('extensions', {
                     title: decl.classData.title ?? undefined,
                     desc: decl.classData.desc ?? undefined,
                 };
-                
+
                 switch (decl.classType) {
                     case ClassType.Module:
                         this.modules.set(baseData.name, baseData);
