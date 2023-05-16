@@ -9,7 +9,7 @@ import ParamsTable from "../components/Table/ParamsTable.vue";
 import FileInput from "../components/Controls/FileInput.vue";
 // noinspection ES6UnusedImports
 import Accordion, {AccordionItem} from "../components/Accordion.vue";
-import {ItemClass, LimitClass, ModuleClass} from "../vipm/types.ts";
+import {IItemClass, ILimitClass, IModuleClass} from "../vipm/types.ts";
 
 const selectedFile = ref<File | null>(null);
 // Чтобы для теста каждый раз не писать руками
@@ -78,7 +78,7 @@ async function loadFromGithub() {
             <div>
                 <h3 class="header-3">Modules</h3>
                 <accordion :items="exts.modulesList">
-                    <template v-slot:head="{item: module}: AccordionItem<ModuleClass>">
+                    <template v-slot:head="{item: module}: AccordionItem<IModuleClass>">
                         <h4 class="font-semibold shrink-0">
                             <span>{{ module.title ?? module.name }}</span>
                             <span class="text-gray-500 ml-2 font-normal" v-if="module.title">({{ module.name }})</span>
@@ -89,7 +89,7 @@ async function loadFromGithub() {
                             @click="exts.modules.delete(module.name)"
                         >Remove</secondary-button>
                     </template>
-                    <template v-slot:body="{item: module}: AccordionItem<ModuleClass>">
+                    <template v-slot:body="{item: module}: AccordionItem<IModuleClass>">
                         <p class="mb-6" v-if="module.desc">{{ module.desc }}</p>
                         <h5>Params:</h5>
                         <params-table :params="module.params" class="w-full text-sm"/>
@@ -99,7 +99,7 @@ async function loadFromGithub() {
             <div>
                 <h3 class="header-3">Limits</h3>
                 <accordion :items="exts.limitsList">
-                    <template v-slot:head="{item: limit}: AccordionItem<LimitClass>">
+                    <template v-slot:head="{item: limit}: AccordionItem<ILimitClass>">
                         <h4 class="font-semibold shrink-0">
                             <span>{{ limit.title ?? limit.name }}</span>
                             <span class="text-gray-500 ml-2 font-normal" v-if="limit.title">({{ limit.name }})</span>
@@ -110,7 +110,7 @@ async function loadFromGithub() {
                             @click="exts.limits.delete(limit.name)"
                         >Remove</secondary-button>
                     </template>
-                    <template v-slot:body="{item: limit}: AccordionItem<LimitClass>">
+                    <template v-slot:body="{item: limit}: AccordionItem<ILimitClass>">
                         <p class="mb-6" v-if="limit.desc">{{ limit.desc }}</p>
                         <div class="space-y-2">
                             <div class="space-x-2">
@@ -132,7 +132,7 @@ async function loadFromGithub() {
             <div>
                 <h3 class="header-3">Items</h3>
                 <accordion :items="exts.itemsList">
-                    <template v-slot:head="{item: item}: AccordionItem<ItemClass>">
+                    <template v-slot:head="{item}: AccordionItem<IItemClass>">
                         <h4 class="font-semibold shrink-0">
                             <span>{{ item.title ?? item.name }}</span>
                             <span class="text-gray-500 ml-2 font-normal" v-if="item.title">({{ item.name }})</span>
@@ -143,7 +143,7 @@ async function loadFromGithub() {
                             @click="exts.items.delete(item.name)"
                         >Remove</secondary-button>
                     </template>
-                    <template v-slot:body="{item: item}: AccordionItem<ItemClass>">
+                    <template v-slot:body="{item}: AccordionItem<IItemClass>">
                         <p class="mb-6" v-if="item.desc">{{ item.desc }}</p>
                         <h5>Params:</h5>
                         <params-table :params="item.params" class="w-full text-sm"/>

@@ -1,12 +1,12 @@
 import {defineStore} from "pinia";
 import {useStorage} from "@vueuse/core";
 import {
-    BaseClass,
+    IBaseClass,
     ClassDeclaration,
     ClassType,
-    ItemClass,
-    LimitClass,
-    ModuleClass,
+    IItemClass,
+    ILimitClass,
+    IModuleClass,
     ParamsList,
     ParamType
 } from "../vipm/types.ts";
@@ -14,25 +14,25 @@ import {checkParamType} from "../vipm/params.ts";
 
 export const useExtensionsStore = defineStore('extensions', {
     state: () => ({
-        modules: useStorage<Map<string, ModuleClass>>('ext-modules', new Map()),
-        limits: useStorage<Map<string, LimitClass>>('ext-limits', new Map()),
-        items: useStorage<Map<string, ItemClass>>('ext-items', new Map()),
+        modules: useStorage<Map<string, IModuleClass>>('ext-modules', new Map()),
+        limits: useStorage<Map<string, ILimitClass>>('ext-limits', new Map()),
+        items: useStorage<Map<string, IItemClass>>('ext-items', new Map()),
     }),
 
     getters: {
-        modulesList: (state): ModuleClass[] => Array.from(state.modules, (v) => v[1]),
-        limitsList: (state): LimitClass[] => Array.from(state.limits, (v) => v[1]),
-        itemsList: (state): ItemClass[] => Array.from(state.items, (v) => v[1]),
+        modulesList: (state): IModuleClass[] => Array.from(state.modules, (v) => v[1]),
+        limitsList: (state): ILimitClass[] => Array.from(state.limits, (v) => v[1]),
+        itemsList: (state): IItemClass[] => Array.from(state.items, (v) => v[1]),
     },
 
     actions: {
-        getModule(name: string): ModuleClass | undefined {
+        getModule(name: string): IModuleClass | undefined {
             return this.modules.get(name);
         },
-        getLimit(name: string): LimitClass | undefined {
+        getLimit(name: string): ILimitClass | undefined {
             return this.limits.get(name);
         },
-        getItem(name: string): ItemClass | undefined {
+        getItem(name: string): IItemClass | undefined {
             return this.items.get(name);
         },
 
@@ -83,7 +83,7 @@ export const useExtensionsStore = defineStore('extensions', {
             }
 
             for (const decl of decls) {
-                const baseData: BaseClass = {
+                const baseData: IBaseClass = {
                     name: decl.classData.name,
                     params: makeParamsList(decl.classData.params),
                     title: decl.classData.title ?? undefined,

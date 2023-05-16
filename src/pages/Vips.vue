@@ -4,11 +4,11 @@ import {useVipsStore} from "../stores/vips.ts";
 import PrimaryButton from "../components/Controls/PrimaryButton.vue";
 import TextInput from "../components/Controls/TextInput.vue";
 import {ref} from "vue";
-// noinspection ES6UnusedImports
 import Accordion, {AccordionItem} from "../components/Accordion.vue";
-import {CommentedVipItem, ModuleUnit} from "../vipm/types.ts";
+import {ICommentedVipItem} from "../vipm/types.ts";
 import SecondaryButton from "../components/Controls/SecondaryButton.vue";
 import {useExtensionsStore} from "../stores/extensions.ts";
+import {ModuleUnit} from "../vipm/impl.ts";
 
 const vips = useVipsStore();
 const exts = useExtensionsStore();
@@ -21,23 +21,26 @@ function onAddVip() {
 
 function test(vipIndex: number) {
     const moduleClass = exts.getModule('VipInTab');
-    console.log(moduleClass);
     if (moduleClass === undefined) {
         return;
     }
 
-    const moduleUnit: ModuleUnit = {
-        module: moduleClass,
-        params: {
-            Enabled: true,
-            Override: false,
-        },
-    };
-    console.log(moduleUnit);
+    const moduleUnit = new ModuleUnit(moduleClass, {
+        Enabled: true,
+        Override: false,
+    });
 
     vips.addModule(vipIndex, moduleUnit);
-    console.log(vips.vipsList);
 }
+
+// TODO: Нормальные списки лимитов и модулей
+// TODO: Кнопки для добавления лимита/модуля с селектом из доступных
+// TODO: Модалки для ввода параметров
+//       Возможно выбор класса юнита будет уже в модалке,
+//       и после выбора будут появляться поля для параметров.
+
+//       А поля для параметров скорее всего отдельными компонентами для каждого типа,
+//       и динамически подставлять это всё в формочку.
 </script>
 
 <template>
@@ -54,24 +57,26 @@ function test(vipIndex: number) {
         </form>
 
         <accordion :items="vips.vipsList" class="mt-4">
-            <template v-slot:head="{item: vip, index}: AccordionItem<CommentedVipItem>">
+            <template v-slot:head="{item, index}: AccordionItem<ICommentedVipItem>">
                 <div class="flex items-center w-full font-semibold">
                     <h3 class="shrink-0">
-                        <span v-if="vip.comment">{{ vip.comment }}</span>
+                        <span v-if="item.comment">{{ item.comment }}</span>
                         <span v-else class="italic">*Untitled*</span>
                     </h3>
                     <div class="grow"></div>
                     <secondary-button class="shrink-0" @click="vips.remove(index)">Remove</secondary-button>
                 </div>
             </template>
-            <template v-slot:body="{item: vip, index}: AccordionItem<CommentedVipItem>">
+            <template v-slot:body="{item, index}: AccordionItem<ICommentedVipItem>">
                 <div class="space-y-2">
-                    <p>Limits count: {{ vip.access.length }}</p>
-                    <p>Modules count: {{ vip.modules.length }}</p>
-                    <pre>{{ vip }}</pre>
+                    <p>Limits count: {{ item.vip.access.length }}</p>
+                    <p>Modules count: {{ item.vip.modules.length }}</p>
+                    <pre>{{ item.vip.generate() }}</pre>
                     <primary-button @click="test(index)">Test</primary-button>
                 </div>
             </template>
         </accordion>
+
+        <pre>{{ vips.generated }}</pre>
     </div>
 </template>

@@ -5,14 +5,14 @@ import TableTextRow from "./TableTextRow.vue";
 import {ParamsList} from "../../vipm/types.ts";
 
 defineProps<{
-    params: ParamsList,
+    params?: ParamsList,
 }>();
 </script>
 
 <template>
     <table-layout>
         <table-simple-header :ths="['Name', 'Type', 'Required', 'Default']"/>
-        <tbody v-if="params.length">
+        <tbody v-if="params?.length">
         <tr v-for="param in params" :key="param.name">
             <td><span
                 :class="`${param.desc ? 'underline decoration-dashed underline-offset-2 cursor-help' : ''}`"

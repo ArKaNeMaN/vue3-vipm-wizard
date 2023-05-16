@@ -6,46 +6,49 @@ export enum ClassType {
 
 export interface ClassDeclaration {
     classType: ClassType;
-    classData: BaseClass & (LimitClass | ItemClass | ModuleClass) | any;
+    classData: IBaseClass & (ILimitClass | IItemClass | IModuleClass) | any;
 }
 
-export interface BaseClass {
+export interface IBaseClass {
     name: string;
-    params: ParamsList;
+    params?: ParamsList;
 
     title?: string;
     desc?: string;
     url?: string;
 }
 
-export interface BaseClassUnit {
-    // generate(): Object;
+export type GeneratedValue = string | number | boolean | GeneratedArray | GeneratedObject;
+export type GeneratedArray = GeneratedValue[];
+export type GeneratedObject = { [index: string]: GeneratedValue };
+
+export interface CanBeGenerated {
+    generate(): GeneratedObject;
 }
 
-export interface ModuleClass extends BaseClass {
+export interface IBaseClassUnit<T extends IBaseClass = IBaseClass> extends CanBeGenerated {
+    unitClass: T;
+    params?: ParamValues | null;
 }
 
-export interface ModuleUnit extends BaseClassUnit {
-    module: ModuleClass;
-    params: ParamValues;
+export interface IModuleClass extends IBaseClass {
 }
 
-export interface LimitClass extends BaseClass {
+export interface IModuleUnit extends IBaseClassUnit<IModuleClass> {
+}
+
+export interface ILimitClass extends IBaseClass {
     forPlayer: boolean,
     static: boolean,
 }
 
-export interface LimitUnit extends BaseClassUnit {
-    type: LimitClass;
-    params: ParamValues;
+export interface ILimitUnit extends IBaseClassUnit<ILimitClass> {
 }
 
-export interface ItemClass extends BaseClass {
+export interface IItemClass extends IBaseClass {
 }
 
-export interface ItemUnit extends BaseClassUnit {
-    type: ItemClass;
-    params: ParamValues;
+export interface IItemUnit extends IBaseClassUnit<IItemClass> {
 }
 
 export enum ParamType {
@@ -63,7 +66,7 @@ export enum ParamType {
     Items = 'Items',
 }
 
-export interface Param {
+export type Param = {
     name: string,
     type: ParamType,
     required: boolean,
@@ -85,14 +88,14 @@ export type ParamValue =
     | LimitsParamValue
     | ItemParamValue
     | ItemsParamValue;
-export type CustomParamValue = ItemUnit | ItemUnit[] | any;
+export type CustomParamValue = IItemUnit | IItemUnit[] | any;
 export type ColorParamValue = { Red: number, Green: number, Blue: number };
 export type Vector2ParamValue = { X: number, Y: number };
 export type Vector3ParamValue = { X: number, Y: number, Z: number };
-export type LimitParamValue = LimitUnit;
-export type LimitsParamValue = LimitUnit[];
-export type ItemParamValue = ItemUnit;
-export type ItemsParamValue = ItemUnit[];
+export type LimitParamValue = ILimitUnit;
+export type LimitsParamValue = ILimitUnit[];
+export type ItemParamValue = IItemUnit;
+export type ItemsParamValue = IItemUnit[];
 
 // TODO: Или лучше массив обьектов типа {param: Param, value: ParamValue}, чтобы не терять инфу о параметре?
 // export type ParamValues = {param: Param, value: ParamValue}[]
@@ -100,11 +103,12 @@ export type ParamValues = {
     [index: string]: ParamValue,
 };
 
-export interface VipItem {
-    access: LimitUnit[],
-    modules: ModuleUnit[],
+export interface IVipItem extends CanBeGenerated {
+    access: ILimitUnit[],
+    modules: IModuleUnit[],
 }
 
-export interface CommentedVipItem extends VipItem {
+export type ICommentedVipItem = {
     comment: string,
+    vip: IVipItem,
 }

@@ -14,6 +14,7 @@ import "vue-toastification/dist/index.css";
 import VueTippy from 'vue-tippy';
 import 'tippy.js/dist/tippy.css'
 import Vips from "./pages/Vips.vue";
+import 'reflect-metadata'
 
 library.add(fas, fab);
 
