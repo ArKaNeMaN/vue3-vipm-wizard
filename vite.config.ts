@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
-    base: '/vue3-vipm-wizard/',
+  plugins: [vue({
+      script: {
+          defineModel: true,
+      }
+  })],
 })
